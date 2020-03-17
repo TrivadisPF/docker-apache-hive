@@ -1,2 +1,2 @@
 # docker-apache-hadoop
-Docker Support for Apache Hadoop
+Docker Support for Apache Hive
