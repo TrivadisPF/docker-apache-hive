@@ -49,8 +49,6 @@ RUN chmod +x /usr/local/bin/startup.sh
 COPY entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
-COPY --from=DEPENDENCY_BUILD /external-jars/ /opt/hive/lib/
-
 RUN curl -L https://repo1.maven.org/maven2/com/amazonaws/aws-java-sdk-bundle/${AWS_VERSION}/aws-java-sdk-bundle-${AWS_VERSION}.jar -o /opt/hive/lib/aws-java-sdk.jar && \
     curl -L http://central.maven.org/maven2/org/apache/hadoop/hadoop-aws/${HADOOP_VERSION}/hadoop-aws-${HADOOP_VERSION}.jar -o /opt/hive/lib/hadoop-aws.jar
 
