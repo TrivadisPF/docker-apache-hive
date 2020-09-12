@@ -2,7 +2,7 @@
 # The following changes have been made:
 #
 # 1. Hadoop updated to 3.1.2
-# 2. Hive updated to 2.3.3
+# 2. Hive updated to 2.3.7
 # 3. AWS S3 jars added
 
 FROM bde2020/hadoop-base:2.0.0-hadoop3.1.2-java8
@@ -10,7 +10,7 @@ FROM bde2020/hadoop-base:2.0.0-hadoop3.1.2-java8
 MAINTAINER guido.schmutz@trivadis.com
 
 ENV HADOOP_VERSION 3.1.2
-ENV HIVE_VERSION 2.3.3
+ENV HIVE_VERSION 2.3.7
 ENV AWS_VERSION=1.11.271
 
 ENV HIVE_HOME /opt/hive
