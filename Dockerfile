@@ -58,7 +58,7 @@ RUN curl -L https://repo1.maven.org/maven2/com/amazonaws/aws-java-sdk-bundle/${A
     curl -L https://repo1.maven.org/maven2/org/apache/hadoop/hadoop-azure/${HADOOP_VERSION}/hadoop-azure-datalake-${HADOOP_VERSION}.jar -o /opt/hive/lib/hadoop-azure-datalake.jar
 
 ENV HADOOP_OPTIONAL_TOOLS=hadoop-azure,hadoop-azure-datalake
-ENV HADOOP_CLASSPATH=/opt/hive/lib
+#ENV HADOOP_CLASSPATH=/opt/hive/lib
 
 EXPOSE 10000
 EXPOSE 10002
