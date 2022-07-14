@@ -5,7 +5,7 @@
 # 2. Hive updated to 3.1.5
 # 3. AWS S3 jars added
 
-FROM trivadis/apache-hadoop-base:2.0.0-hadoop3.3.3-java11
+FROM trivadis/apache-hadoop-base:2.0.0-hadoop3.3.3-java8
 
 MAINTAINER guido.schmutz@trivadis.com
 
