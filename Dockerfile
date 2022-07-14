@@ -12,7 +12,8 @@ MAINTAINER guido.schmutz@trivadis.com
 ENV HADOOP_VERSION 3.1.2
 ENV HIVE_VERSION 3.1.2
 ENV AWS_VERSION=1.11.271
-ENV AZURE_VERSION=7.0.0
+ENV AZURE_STORAGE_VERSION=7.0.0
+ENV AZURE_DL_SDK_VERSION=2.3.6
 
 ENV HIVE_HOME /opt/hive
 ENV PATH $HIVE_HOME/bin:$PATH
@@ -51,8 +52,12 @@ RUN chmod +x /usr/local/bin/entrypoint.sh
 
 RUN curl -L https://repo1.maven.org/maven2/com/amazonaws/aws-java-sdk-bundle/${AWS_VERSION}/aws-java-sdk-bundle-${AWS_VERSION}.jar -o /opt/hive/lib/aws-java-sdk.jar && \
     curl -L https://repo1.maven.org/maven2/org/apache/hadoop/hadoop-aws/${HADOOP_VERSION}/hadoop-aws-${HADOOP_VERSION}.jar -o /opt/hive/lib/hadoop-aws.jar && \
-    curl -L https://repo1.maven.org/maven2/com/azure/azure-storage/${AZURE_VERSION}/azure-storage-${AZURE_VERSION}.jar -o /opt/hive/lib/azure-storage.jar && \
-    curl -L https://repo1.maven.org/maven2/org/apache/hadoop/hadoop-azure/${HADOOP_VERSION}/hadoop-azure-${HADOOP_VERSION}.jar -o /opt/hive/lib/hadoop-azure.jar
+    curl -L https://repo1.maven.org/maven2/com/azure/azure-storage/${AZURE_STORAGE_VERSION}/azure-storage-${AZURE_STORAGE_VERSION}.jar -o /opt/hive/lib/azure-storage.jar && \
+    curl -L https://repo1.maven.org/maven2/com/azure/azure-data-lake-store-sdk/${AZURE_DL_SDK_VERSION}/azure-data-lake-store-sdk-${AZURE_DL_SDK_VERSION}.jar -o /opt/hive/lib/azure-data-lake-store-sdk.jar && \
+    curl -L https://repo1.maven.org/maven2/org/apache/hadoop/hadoop-azure/${HADOOP_VERSION}/hadoop-azure-${HADOOP_VERSION}.jar -o /opt/hive/lib/hadoop-azure.jar && \
+    curl -L https://repo1.maven.org/maven2/org/apache/hadoop/hadoop-azure/${HADOOP_VERSION}/hadoop-azure-datalake-${HADOOP_VERSION}.jar -o /opt/hive/lib/hadoop-azure-datalake.jar
+
+ENV HADOOP_OPTIONAL_TOOLS=hadoop-azure,hadoop-azure-datalake
 
 EXPOSE 10000
 EXPOSE 10002
