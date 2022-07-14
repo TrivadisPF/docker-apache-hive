@@ -10,7 +10,7 @@ FROM bde2020/hadoop-base:2.0.0-hadoop3.1.2-java8
 MAINTAINER guido.schmutz@trivadis.com
 
 ENV HADOOP_VERSION 3.1.2
-ENV HIVE_VERSION 2.3.7
+ENV HIVE_VERSION 2.3.9
 ENV AWS_VERSION=1.11.271
 
 ENV HIVE_HOME /opt/hive
@@ -21,7 +21,7 @@ WORKDIR /opt
 
 #Install Hive and PostgreSQL JDBC
 RUN apt-get update && apt-get install -y wget procps && \
-	wget https://archive.apache.org/dist/hive/hive-$HIVE_VERSION/apache-hive-$HIVE_VERSION-bin.tar.gz && \
+	wget https://dlcdn.apache.org/hive/hive-$HIVE_VERSION/apache-hive-$HIVE_VERSION-bin.tar.gz && \
 	tar -xzvf apache-hive-$HIVE_VERSION-bin.tar.gz && \
 	mv apache-hive-$HIVE_VERSION-bin hive && \
 	wget https://jdbc.postgresql.org/download/postgresql-9.4.1212.jar -O $HIVE_HOME/lib/postgresql-jdbc.jar && \
