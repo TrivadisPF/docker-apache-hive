@@ -1,15 +1,15 @@
 # Note: This Dockerfile is based on https://hub.docker.com/r/bde2020/hadoop-base
 # The following changes have been made:
 #
-# 1. Hadoop updated to 3.1.3
+# 1. Hadoop updated to 3.1.2
 # 2. Hive updated to 3.1.5
 # 3. AWS S3 jars added
 
-FROM bde2020/hadoop-base:2.0.0-hadoop3.1.3-java8
+FROM bde2020/hadoop-base:2.0.0-hadoop3.1.2-java8
 
 MAINTAINER guido.schmutz@trivadis.com
 
-ENV HADOOP_VERSION 3.1.3
+ENV HADOOP_VERSION 3.1.2
 ENV HIVE_VERSION 3.1.2
 ENV AWS_VERSION=1.11.271
 ENV AZURE_STORAGE_VERSION=7.0.0
