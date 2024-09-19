@@ -1,9 +1,10 @@
 # Note: This Dockerfile is based on https://hub.docker.com/r/bde2020/hadoop-base
 # The following changes have been made:
 #
-# 1. Hadoop updated to 3.3.3 with Java 11
+# 1. Hadoop updated to 3.3.3
 # 2. Hive updated to 3.1.5
 # 3. AWS S3 jars added
+# 4. Azure ADLS jars added
 
 FROM trivadis/apache-hadoop-base:2.0.0-hadoop3.3.3-java8
 
