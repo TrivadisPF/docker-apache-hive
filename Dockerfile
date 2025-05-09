@@ -24,7 +24,7 @@ WORKDIR /opt
 
 #Install Hive and PostgreSQL JDBC
 RUN apt-get update && apt-get install -y wget procps && \
-	wget --no-check-certificate https://dlcdn.apache.org/hive/hive-$HIVE_VERSION/apache-hive-$HIVE_VERSION-bin.tar.gz && \
+	wget --no-check-certificate https://archive.apache.org/dist/hive/hive-$HIVE_VERSION/apache-hive-$HIVE_VERSION-bin.tar.gz && \
 	tar -xzvf apache-hive-$HIVE_VERSION-bin.tar.gz && \
 	mv apache-hive-$HIVE_VERSION-bin hive && \
 	wget --no-check-certificate https://jdbc.postgresql.org/download/postgresql-42.7.4.jar -O $HIVE_HOME/lib/postgresql-jdbc.jar && \
