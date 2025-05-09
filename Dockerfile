@@ -6,39 +6,15 @@
 # 3. AWS S3 jars added
 # 4. Azure ADLS jars added
 
-FROM trivadis/apache-hadoop-base:2.0.0-hadoop3.3.3-java8
+FROM apache/hive:3.1.3
 
 MAINTAINER guido.schmutz@trivadis.com
 
+ENV HIVE_HOME=/opt/hive
 ENV HADOOP_VERSION=3.3.3
-ENV HIVE_VERSION=3.1.2
 ENV AWS_VERSION=1.11.271
 ENV AZURE_STORAGE_VERSION=7.0.0
 ENV AZURE_DL_SDK_VERSION=2.3.6
-
-ENV HIVE_HOME=/opt/hive
-ENV PATH=$HIVE_HOME/bin:$PATH
-ENV HADOOP_HOME=/opt/hadoop-$HADOOP_VERSION
-
-WORKDIR /opt
-
-RUN sed -i 's/deb.debian.org/archive.debian.org/g' /etc/apt/sources.list && \
-    sed -i 's|security.debian.org|archive.debian.org/debian-security|g' /etc/apt/sources.list && \
-    sed -i '/stretch-updates/d' /etc/apt/sources.list
-
-#Install Hive and PostgreSQL JDBC
-RUN rm -rf /var/lib/apt/lists/* && apt-get update && apt-get install -y wget procps && \
-	wget --no-check-certificate https://archive.apache.org/dist/hive/hive-$HIVE_VERSION/apache-hive-$HIVE_VERSION-bin.tar.gz && \
-	tar -xzvf apache-hive-$HIVE_VERSION-bin.tar.gz && \
-	mv apache-hive-$HIVE_VERSION-bin hive && \
-	wget --no-check-certificate https://jdbc.postgresql.org/download/postgresql-42.7.4.jar -O $HIVE_HOME/lib/postgresql-jdbc.jar && \
-	rm apache-hive-$HIVE_VERSION-bin.tar.gz && \
-	apt-get --purge remove -y wget && \
-	apt-get clean && \
-	rm -rf /var/lib/apt/lists/*
-
-#Spark should be compiled with Hive to be able to use it
-#hive-site.xml should be copied to $SPARK_HOME/conf folder
 
 #Custom configuration goes here
 ADD conf/hive-site.xml $HIVE_HOME/conf
@@ -49,24 +25,23 @@ ADD conf/hive-log4j2.properties $HIVE_HOME/conf
 ADD conf/ivysettings.xml $HIVE_HOME/conf
 ADD conf/llap-daemon-log4j2.properties $HIVE_HOME/conf
 
-COPY startup.sh /usr/local/bin/
-RUN chmod +x /usr/local/bin/startup.sh
-
+USER root
 COPY entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
-RUN curl -L https://repo1.maven.org/maven2/com/amazonaws/aws-java-sdk-bundle/${AWS_VERSION}/aws-java-sdk-bundle-${AWS_VERSION}.jar -o /opt/hive/lib/aws-java-sdk.jar && \
-    curl -L https://repo1.maven.org/maven2/org/apache/hadoop/hadoop-aws/${HADOOP_VERSION}/hadoop-aws-${HADOOP_VERSION}.jar -o /opt/hive/lib/hadoop-aws.jar && \
-    curl -L https://repo1.maven.org/maven2/com/azure/azure-storage/${AZURE_STORAGE_VERSION}/azure-storage-${AZURE_STORAGE_VERSION}.jar -o /opt/hive/lib/azure-storage.jar && \
-    curl -L https://repo1.maven.org/maven2/com/azure/azure-data-lake-store-sdk/${AZURE_DL_SDK_VERSION}/azure-data-lake-store-sdk-${AZURE_DL_SDK_VERSION}.jar -o /opt/hive/lib/azure-data-lake-store-sdk.jar && \
-    curl -L https://repo1.maven.org/maven2/org/apache/hadoop/hadoop-azure/${HADOOP_VERSION}/hadoop-azure-${HADOOP_VERSION}.jar -o /opt/hive/lib/hadoop-azure.jar && \
-    curl -L https://repo1.maven.org/maven2/org/apache/hadoop/hadoop-azure/${HADOOP_VERSION}/hadoop-azure-datalake-${HADOOP_VERSION}.jar -o /opt/hive/lib/hadoop-azure-datalake.jar
+RUN apt-get update && apt-get install -y curl 
+
+RUN curl -L https://repo1.maven.org/maven2/com/amazonaws/aws-java-sdk-bundle/${AWS_VERSION}/aws-java-sdk-bundle-${AWS_VERSION}.jar -o ${HIVE_HOME}/lib/aws-java-sdk.jar && \
+    curl -L https://repo1.maven.org/maven2/org/apache/hadoop/hadoop-aws/${HADOOP_VERSION}/hadoop-aws-${HADOOP_VERSION}.jar -o ${HIVE_HOME}/lib/hadoop-aws.jar && \
+    curl -L https://repo1.maven.org/maven2/com/azure/azure-storage/${AZURE_STORAGE_VERSION}/azure-storage-${AZURE_STORAGE_VERSION}.jar -o ${HIVE_HOME}/lib/azure-storage.jar && \
+    curl -L https://repo1.maven.org/maven2/com/azure/azure-data-lake-store-sdk/${AZURE_DL_SDK_VERSION}/azure-data-lake-store-sdk-${AZURE_DL_SDK_VERSION}.jar -o ${HIVE_HOME}/lib/azure-data-lake-store-sdk.jar && \
+    curl -L https://repo1.maven.org/maven2/org/apache/hadoop/hadoop-azure/${HADOOP_VERSION}/hadoop-azure-${HADOOP_VERSION}.jar -o ${HIVE_HOME}/lib/hadoop-azure.jar && \
+    curl -L https://repo1.maven.org/maven2/org/apache/hadoop/hadoop-azure/${HADOOP_VERSION}/hadoop-azure-datalake-${HADOOP_VERSION}.jar -o ${HIVE_HOME}/lib/hadoop-azure-datalake.jar
 
 ENV HADOOP_OPTIONAL_TOOLS=hadoop-azure,hadoop-azure-datalake
 ENV HADOOP_CLASSPATH=/opt/hive/lib/*.jar:/opt/hadoop-$HADOOP_VERSION/share/hadoop/tools/lib/*.jar
 
-EXPOSE 10000
-EXPOSE 10002
+USER hive
 
 ENTRYPOINT ["entrypoint.sh"]
-CMD startup.sh
+
