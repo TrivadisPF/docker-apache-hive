@@ -10,20 +10,24 @@ FROM trivadis/apache-hadoop-base:2.0.0-hadoop3.3.3-java8
 
 MAINTAINER guido.schmutz@trivadis.com
 
-ENV HADOOP_VERSION 3.3.3
-ENV HIVE_VERSION 3.1.2
+ENV HADOOP_VERSION=3.3.3
+ENV HIVE_VERSION=3.1.2
 ENV AWS_VERSION=1.11.271
 ENV AZURE_STORAGE_VERSION=7.0.0
 ENV AZURE_DL_SDK_VERSION=2.3.6
 
-ENV HIVE_HOME /opt/hive
-ENV PATH $HIVE_HOME/bin:$PATH
-ENV HADOOP_HOME /opt/hadoop-$HADOOP_VERSION
+ENV HIVE_HOME=/opt/hive
+ENV PATH=$HIVE_HOME/bin:$PATH
+ENV HADOOP_HOME=/opt/hadoop-$HADOOP_VERSION
 
 WORKDIR /opt
 
+RUN sed -i 's/deb.debian.org/archive.debian.org/g' /etc/apt/sources.list && \
+    sed -i 's|security.debian.org|archive.debian.org/debian-security|g' /etc/apt/sources.list && \
+    sed -i '/stretch-updates/d' /etc/apt/sources.list
+
 #Install Hive and PostgreSQL JDBC
-RUN apt-get update && apt-get install -y wget procps && \
+RUN rm -rf /var/lib/apt/lists/* && apt-get update && apt-get install -y wget procps && \
 	wget --no-check-certificate https://archive.apache.org/dist/hive/hive-$HIVE_VERSION/apache-hive-$HIVE_VERSION-bin.tar.gz && \
 	tar -xzvf apache-hive-$HIVE_VERSION-bin.tar.gz && \
 	mv apache-hive-$HIVE_VERSION-bin hive && \
