@@ -112,13 +112,14 @@ function wait_for_it()
     echo "[$i/$max_try] $service:${port} is available."
 }
 
-for i in ${SERVICE_PRECONDITION[@]}
-do
-    wait_for_it ${i}
-done
-
-
 : ${DB_DRIVER:=derby}
+
+if [ "${DB_DRIVER}" == "postgres" ]; then
+  for i in ${SERVICE_PRECONDITION[@]}
+  do
+    wait_for_it ${i}
+  done
+fi
 
 SKIP_SCHEMA_INIT="${IS_RESUME:-false}"
 [[ $VERBOSE = "true" ]] && VERBOSE_MODE="--verbose" || VERBOSE_MODE=""
