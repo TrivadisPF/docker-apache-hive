@@ -27,7 +27,7 @@ USER root
 COPY entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
-RUN chmod 777 /tmp/hive
+RUN mkdir -p /tmp/hive && chmod 777 /tmp/hive
 
 RUN apt-get update && apt-get install -y curl wget netcat-traditional && \
         rm $HIVE_HOME/lib/postgresql-9.4.1208.jre7.jar && \
