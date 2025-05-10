@@ -4,12 +4,12 @@
 # 3. AWS S3 jars added
 # 4. Azure ADLS jars added
 
-FROM apache/hive:3.3.3
+FROM apache/hive:3.1.0
 
 MAINTAINER guido.schmutz@trivadis.com
 
 ENV HIVE_HOME=/opt/hive
-ENV HADOOP_VERSION=3.1.0
+ENV HADOOP_VERSION=3.3.3
 ENV AWS_VERSION=1.11.901
 ENV AZURE_STORAGE_VERSION=7.0.0
 ENV AZURE_DL_SDK_VERSION=2.3.6
