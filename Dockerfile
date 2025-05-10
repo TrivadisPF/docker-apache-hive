@@ -1,8 +1,6 @@
-# Note: This Dockerfile is based on https://hub.docker.com/r/bde2020/hadoop-base
-# The following changes have been made:
+# Note: This Dockerfile is based on apache/hive
+# The following addons have been made:
 #
-# 1. Hadoop updated to 3.3.3
-# 2. Hive updated to 3.1.5
 # 3. AWS S3 jars added
 # 4. Azure ADLS jars added
 
@@ -29,7 +27,8 @@ USER root
 COPY entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
-RUN apt-get update && apt-get install -y curl netcat-traditional
+RUN apt-get update && apt-get install -y curl wget netcat-traditional && \
+		wget --no-check-certificate https://jdbc.postgresql.org/download/postgresql-42.7.4.jar -O $HIVE_HOME/lib/postgresql-jdbc.jar
 
 RUN curl -L https://repo1.maven.org/maven2/com/amazonaws/aws-java-sdk-bundle/${AWS_VERSION}/aws-java-sdk-bundle-${AWS_VERSION}.jar -o ${HIVE_HOME}/lib/aws-java-sdk.jar && \
     curl -L https://repo1.maven.org/maven2/org/apache/hadoop/hadoop-aws/${HADOOP_VERSION}/hadoop-aws-${HADOOP_VERSION}.jar -o ${HIVE_HOME}/lib/hadoop-aws.jar && \
