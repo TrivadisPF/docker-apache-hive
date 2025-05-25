@@ -31,7 +31,7 @@ RUN mkdir -p /tmp/hive && chmod 777 /tmp/hive
 
 RUN apt-get update && apt-get install -y curl wget netcat-traditional && \
         rm $HIVE_HOME/lib/postgresql-9.4.1208.jre7.jar && \
-		wget --no-check-certificate https://jdbc.postgresql.org/download/postgresql-42.7.4.jar -O $HIVE_HOME/lib/postgresql-jdbc.jar
+		wget --no-check-certificate https://jdbc.postgresql.org/download/postgresql-42.7.4.jar -O $HIVE_HOME/lib/postgresql-42.7.4.jar
 
 RUN curl -L https://repo1.maven.org/maven2/com/amazonaws/aws-java-sdk-bundle/${AWS_VERSION}/aws-java-sdk-bundle-${AWS_VERSION}.jar -o ${HIVE_HOME}/lib/aws-java-sdk.jar && \
     curl -L https://repo1.maven.org/maven2/org/apache/hadoop/hadoop-aws/${HADOOP_VERSION}/hadoop-aws-${HADOOP_VERSION}.jar -o ${HIVE_HOME}/lib/hadoop-aws.jar && \
