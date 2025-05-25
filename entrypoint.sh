@@ -121,6 +121,9 @@ if [ "${DB_DRIVER}" == "postgres" ]; then
   done
 fi
 
+# Marker file to check initialization
+INIT_MARKER="/var/lib/hive/.hive_initialized"
+
 SKIP_SCHEMA_INIT="${IS_RESUME:-false}"
 [[ $VERBOSE = "true" ]] && VERBOSE_MODE="--verbose" || VERBOSE_MODE=""
 
@@ -131,6 +134,7 @@ function initialize_hive {
   fi
   $HIVE_HOME/bin/schematool -dbType $DB_DRIVER $COMMAND $VERBOSE_MODE
   if [ $? -eq 0 ]; then
+    touch "$INIT_MARKER"
     echo "Initialized Hive Metastore Server schema successfully.."
   else
     echo "Hive Metastore Server schema initialization failed!"
@@ -147,9 +151,15 @@ if [ -d "${HIVE_CUSTOM_CONF_DIR:-}" ]; then
 fi
 
 export HADOOP_CLIENT_OPTS="$HADOOP_CLIENT_OPTS -Xmx1G $SERVICE_OPTS"
-if [[ "${SKIP_SCHEMA_INIT}" == "false" ]]; then
-  # handles schema initialization
-  initialize_hive
+
+# Only initialize Hive if it hasn't been initialized yet
+if [ ! -f "$INIT_MARKER" ]; then
+  if [[ "${SKIP_SCHEMA_INIT}" == "false" ]]; then
+    # handles schema initialization
+    initialize_hive
+  fi
+else
+  echo "Hive already initialized. Skipping schema init."  
 fi
 
 if [ "${SERVICE_NAME}" == "hiveserver2" ]; then
