@@ -122,7 +122,7 @@ if [ "${DB_DRIVER}" == "postgres" ]; then
 fi
 
 # Marker file to check initialization
-INIT_MARKER="/var/lib/hive/.hive_initialized"
+INIT_MARKER="/opt/hive/.hive_initialized"
 
 SKIP_SCHEMA_INIT="${IS_RESUME:-false}"
 [[ $VERBOSE = "true" ]] && VERBOSE_MODE="--verbose" || VERBOSE_MODE=""
