@@ -4,7 +4,7 @@
 # 3. AWS S3 jars added
 # 4. Azure ADLS jars added
 
-FROM apache/hive:4.0.1
+FROM apache/hive:4.1.0
 
 MAINTAINER guido.schmutz@trivadis.com
 
