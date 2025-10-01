@@ -27,6 +27,12 @@ USER root
 COPY entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
+# Install dependencies
+RUN set -ex; \
+    microdnf update -y; \
+    microdnf -y install perl nc; \
+    rm -rf /var/lib/apt/lists/*
+
 RUN mkdir -p /tmp/hive && chmod 777 /tmp/hive
 
 RUN wget --no-check-certificate https://jdbc.postgresql.org/download/postgresql-42.7.4.jar -O /opt/hive/lib/postgresql-42.7.4.jar
