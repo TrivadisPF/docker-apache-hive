@@ -48,7 +48,8 @@ RUN curl -L $M2/software/amazon/awssdk/sdk-core/${AWS_SDK_V2_VERSION}/sdk-core-$
     curl -L $M2/software/amazon/awssdk/aws-core/${AWS_SDK_V2_VERSION}/aws-core-${AWS_SDK_V2_VERSION}.jar -o ${HIVE_HOME}/lib/aws-core.jar && \
     curl -L $M2/software/amazon/awssdk/identity-spi/${AWS_SDK_V2_VERSION}/identity-spi-${AWS_SDK_V2_VERSION}.jar -o ${HIVE_HOME}/lib/identity-spi.jar && \    
     curl -L $M2/software/amazon/awssdk/http-client-spi/${AWS_SDK_V2_VERSION}/http-client-spi-${AWS_SDK_V2_VERSION}.jar -o ${HIVE_HOME}/lib/http-client-spi.jar && \
-    curl -L $M2/software/amazon/awssdk/s3-transfer-manager/${AWS_SDK_V2_VERSION}/s3-transfer-manager-${AWS_SDK_V2_VERSION}.jar -o ${HIVE_HOME}/lib/s3-transfer-manager.jar && \    
+    curl -L $M2/software/amazon/awssdk/s3-transfer-manager/${AWS_SDK_V2_VERSION}/s3-transfer-manager-${AWS_SDK_V2_VERSION}.jar -o ${HIVE_HOME}/lib/s3-transfer-manager.jar && \  
+    curl -L $M2/software/amazon/awssdk/protocols-core/${AWS_SDK_V2_VERSION}/protocols-core-${AWS_SDK_V2_VERSION}.jar -o ${HIVE_HOME}/lib/protocols-core.jar && \       
     curl -L $M2/org/apache/hadoop/hadoop-aws/${HADOOP_VERSION}/hadoop-aws-${HADOOP_VERSION}.jar -o ${HIVE_HOME}/lib/hadoop-aws.jar && \
     curl -L $M2/com/azure/azure-storage/${AZURE_STORAGE_VERSION}/azure-storage-${AZURE_STORAGE_VERSION}.jar -o ${HIVE_HOME}/lib/azure-storage.jar && \
     curl -L $M2/com/azure/azure-data-lake-store-sdk/${AZURE_DL_SDK_VERSION}/azure-data-lake-store-sdk-${AZURE_DL_SDK_VERSION}.jar -o ${HIVE_HOME}/lib/azure-data-lake-store-sdk.jar && \
