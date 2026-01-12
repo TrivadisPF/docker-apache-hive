@@ -13,7 +13,7 @@ ENV HADOOP_VERSION=3.4.1
 ENV AWS_SDK_V2_VERSION=2.25.63
 ENV AZURE_STORAGE_VERSION=8.6.6
 ENV AZURE_DL_SDK_VERSION=2.3.9
-ENV M2=$M2
+ENV M2=https://repo1.maven.org/maven2
 
 #Custom configuration goes here
 ADD conf/hive-site.xml $HIVE_HOME/conf
