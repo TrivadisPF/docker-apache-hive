@@ -38,18 +38,7 @@ RUN mkdir -p /tmp/hive && chmod 777 /tmp/hive
 
 RUN wget --no-check-certificate https://jdbc.postgresql.org/download/postgresql-42.7.4.jar -O /opt/hive/lib/postgresql-42.7.4.jar
     
-RUN curl -L $M2/software/amazon/awssdk/sdk-core/${AWS_SDK_V2_VERSION}/sdk-core-${AWS_SDK_V2_VERSION}.jar -o ${HIVE_HOME}/lib/sdk-core.jar && \
-    curl -L $M2/software/amazon/awssdk/core/${AWS_SDK_V2_VERSION}/core-${AWS_SDK_V2_VERSION}.jar -o ${HIVE_HOME}/lib/core.jar && \
-    curl -L $M2/software/amazon/awssdk/auth/${AWS_SDK_V2_VERSION}/auth-${AWS_SDK_V2_VERSION}.jar -o ${HIVE_HOME}/lib/auth.jar && \
-    curl -L $M2/software/amazon/awssdk/regions/${AWS_SDK_V2_VERSION}/regions-${AWS_SDK_V2_VERSION}.jar -o ${HIVE_HOME}/lib/regions.jar && \
-    curl -L $M2/software/amazon/awssdk/utils/${AWS_SDK_V2_VERSION}/utils-${AWS_SDK_V2_VERSION}.jar -o ${HIVE_HOME}/lib/utils.jar && \
-    curl -L $M2/software/amazon/awssdk/s3/${AWS_SDK_V2_VERSION}/s3-${AWS_SDK_V2_VERSION}.jar -o ${HIVE_HOME}/lib/s3.jar && \
-    curl -L $M2/software/amazon/awssdk/apache-client/${AWS_SDK_V2_VERSION}/apache-client-${AWS_SDK_V2_VERSION}.jar -o ${HIVE_HOME}/lib/apache-client.jar && \
-    curl -L $M2/software/amazon/awssdk/aws-core/${AWS_SDK_V2_VERSION}/aws-core-${AWS_SDK_V2_VERSION}.jar -o ${HIVE_HOME}/lib/aws-core.jar && \
-    curl -L $M2/software/amazon/awssdk/identity-spi/${AWS_SDK_V2_VERSION}/identity-spi-${AWS_SDK_V2_VERSION}.jar -o ${HIVE_HOME}/lib/identity-spi.jar && \    
-    curl -L $M2/software/amazon/awssdk/http-client-spi/${AWS_SDK_V2_VERSION}/http-client-spi-${AWS_SDK_V2_VERSION}.jar -o ${HIVE_HOME}/lib/http-client-spi.jar && \
-    curl -L $M2/software/amazon/awssdk/s3-transfer-manager/${AWS_SDK_V2_VERSION}/s3-transfer-manager-${AWS_SDK_V2_VERSION}.jar -o ${HIVE_HOME}/lib/s3-transfer-manager.jar && \  
-    curl -L $M2/software/amazon/awssdk/protocol-core/${AWS_SDK_V2_VERSION}/protocol-core-${AWS_SDK_V2_VERSION}.jar -o ${HIVE_HOME}/lib/protocol-core.jar && \       
+RUN curl -L $M2/software/amazon/awssdk/bundle/${AWS_SDK_V2_VERSION}/bundle-${AWS_SDK_V2_VERSION}.jar -o ${HIVE_HOME}/lib/awssdk-bundle.jar && \
     curl -L $M2/org/apache/hadoop/hadoop-aws/${HADOOP_VERSION}/hadoop-aws-${HADOOP_VERSION}.jar -o ${HIVE_HOME}/lib/hadoop-aws.jar && \
     curl -L $M2/com/azure/azure-storage/${AZURE_STORAGE_VERSION}/azure-storage-${AZURE_STORAGE_VERSION}.jar -o ${HIVE_HOME}/lib/azure-storage.jar && \
     curl -L $M2/com/azure/azure-data-lake-store-sdk/${AZURE_DL_SDK_VERSION}/azure-data-lake-store-sdk-${AZURE_DL_SDK_VERSION}.jar -o ${HIVE_HOME}/lib/azure-data-lake-store-sdk.jar && \
