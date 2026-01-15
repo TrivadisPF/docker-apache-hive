@@ -35,7 +35,7 @@ RUN set -ex; \
 
 RUN mkdir -p /tmp/hive && chmod 777 /tmp/hive
 
-RUN wget --no-check-certificate https://jdbc.postgresql.org/download/postgresql-42.7.4.jar -O /opt/hive/lib/postgresql-42.7.4.jar
+RUN wget --no-check-certificate https://jdbc.postgresql.org/download/postgresql-42.7.4.jar -O ${HIVE_HOME}/lib/postgresql-42.7.4.jar
     
 RUN curl -L $M2/software/amazon/awssdk/bundle/${AWS_SDK_V2_VERSION}/bundle-${AWS_SDK_V2_VERSION}.jar -o ${HIVE_HOME}/lib/awssdk-bundle.jar && \
     curl -L $M2/org/apache/hadoop/hadoop-aws/${HADOOP_VERSION}/hadoop-aws-${HADOOP_VERSION}.jar -o ${HIVE_HOME}/lib/hadoop-aws.jar && \
