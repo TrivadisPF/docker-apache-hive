@@ -35,8 +35,14 @@ RUN chmod +x /usr/local/bin/entrypoint.sh
 
 # Install dependencies
 RUN set -ex; \
-    microdnf update -y; \
-    microdnf -y install perl nc hostname; \
+    apt-get update; \
+    apt-get install -y --no-install-recommends \
+        perl \
+        netcat \
+        hostname \
+        curl \
+        wget \
+        ca-certificates; \
     rm -rf /var/lib/apt/lists/*
 
 RUN mkdir -p /tmp/hive && chmod 777 /tmp/hive
