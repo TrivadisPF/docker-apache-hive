@@ -4,13 +4,13 @@
 # 3. AWS S3 jars added
 # 4. Azure ADLS jars added
 
-FROM apache/hive:4.2.0
+FROM apache/hive:stanalone-metastore-4.2.0
 
 MAINTAINER guido.schmutz@trivadis.com
 
 ENV HIVE_HOME=/opt/hive
 ENV HADOOP_VERSION=3.4.1
-ENV AWS_SDK_V2_VERSION=2.25.63
+ENV AWS_SDK_V2_VERSION=2.24.6
 ENV AZURE_STORAGE_VERSION=8.6.6
 ENV AZURE_DL_SDK_VERSION=2.3.9
 ENV M2=https://repo1.maven.org/maven2
