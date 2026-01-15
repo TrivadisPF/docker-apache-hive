@@ -4,7 +4,7 @@
 # 3. AWS S3 jars added
 # 4. Azure ADLS jars added
 
-FROM apache/hive:stanalone-metastore-4.2.0
+FROM apache/hive:standalone-metastore-4.2.0
 
 MAINTAINER guido.schmutz@trivadis.com
 
