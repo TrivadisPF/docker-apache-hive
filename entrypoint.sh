@@ -160,5 +160,5 @@ elif [ "${SERVICE_NAME}" == "metastore" ]; then
   exec $HIVE_HOME/bin/hive --skiphadoopversion --skiphbasecp $VERBOSE_MODE --service $SERVICE_NAME
 elif [ "${SERVICE_NAME}" == "standalone-metastore" ]; then
   export METASTORE_PORT=${METASTORE_PORT:-9083}
-  exec $HIVE_HOME/bin/start-metastore --skiphadoopversion --skiphbasecp $VERBOSE_MODE
+  exec $HIVE_HOME/bin/start-metastore $VERBOSE_MODE
 fi
