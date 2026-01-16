@@ -43,6 +43,15 @@ RUN mkdir -p ${HIVE_HOME} && \
     curl -L https://apache.org/dist/hive/hive-standalone-metastore-${METASTORE_VERSION}/hive-standalone-metastore-${METASTORE_VERSION}-bin.tar.gz | tar zxf - -C ${HIVE_HOME} && \
     curl -L https://archive.apache.org/dist/hadoop/common/hadoop-${HADOOP_VERSION}/hadoop-${HADOOP_VERSION}.tar.gz | tar zxf - && \
 
+#Custom configuration goes here
+ADD conf/hive-site.xml $HIVE_HOME/conf
+ADD conf/beeline-log4j2.properties $HIVE_HOME/conf
+ADD conf/hive-env.sh $HIVE_HOME/conf
+ADD conf/hive-exec-log4j2.properties $HIVE_HOME/conf
+ADD conf/hive-log4j2.properties $HIVE_HOME/conf
+ADD conf/ivysettings.xml $HIVE_HOME/conf
+ADD conf/llap-daemon-log4j2.properties $HIVE_HOME/conf
+
 RUN groupadd -r hive --gid=1000 && \
     useradd -r -g hive --uid=1000 -d ${HIVE_HOME} hive && \
     chown hive:hive -R ${HIVE_HOME} && \
@@ -56,15 +65,6 @@ RUN curl -L $M2/com/amazonaws/aws-java-sdk-bundle/${AWS_SDK_VERSION}/aws-java-sd
     curl -L $M2/com/azure/azure-data-lake-store-sdk/${AZURE_DL_SDK_VERSION}/azure-data-lake-store-sdk-${AZURE_DL_SDK_VERSION}.jar -o ${HIVE_HOME}/lib/azure-data-lake-store-sdk.jar && \
     curl -L $M2/org/apache/hadoop/hadoop-azure/${HADOOP_VERSION}/hadoop-azure-${HADOOP_VERSION}.jar -o ${HIVE_HOME}/lib/hadoop-azure.jar && \
     curl -L $M2/org/apache/hadoop/hadoop-azure/${HADOOP_VERSION}/hadoop-azure-datalake-${HADOOP_VERSION}.jar -o ${HIVE_HOME}/lib/hadoop-azure-datalake.jar
-
-#Custom configuration goes here
-ADD conf/hive-site.xml $HIVE_HOME/conf
-ADD conf/beeline-log4j2.properties $HIVE_HOME/conf
-ADD conf/hive-env.sh $HIVE_HOME/conf
-ADD conf/hive-exec-log4j2.properties $HIVE_HOME/conf
-ADD conf/hive-log4j2.properties $HIVE_HOME/conf
-ADD conf/ivysettings.xml $HIVE_HOME/conf
-ADD conf/llap-daemon-log4j2.properties $HIVE_HOME/conf
 
 ENV HADOOP_OPTIONAL_TOOLS=hadoop-azure,hadoop-azure-datalake
 ENV HADOOP_CLASSPATH=/opt/hive/lib/*.jar:/opt/hadoop-$HADOOP_VERSION/share/hadoop/tools/lib/*.jar
