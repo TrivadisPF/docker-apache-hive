@@ -57,7 +57,8 @@ RUN groupadd -r hive --gid=1000 && \
     chown hive:hive -R ${HIVE_HOME} && \
     chown hive:hive /usr/local/bin/entrypoint.sh && chmod +x /usr/local/bin/entrypoint.sh
 
-RUN wget --no-check-certificate https://jdbc.postgresql.org/download/postgresql-42.7.4.jar -O ${HIVE_HOME}/lib/postgresql-42.7.4.jar
+RUN mkdir -p ${HIVE_HOME}/lib && \
+	wget --no-check-certificate https://jdbc.postgresql.org/download/postgresql-42.7.4.jar -O ${HIVE_HOME}/lib/postgresql-42.7.4.jar
     
 RUN curl -L $M2/com/amazonaws/aws-java-sdk-bundle/${AWS_SDK_VERSION}/aws-java-sdk-bundle-${AWS_SDK_VERSION}.jar -o ${HIVE_HOME}/lib/aws-java-sdk-bundle.jar && \
     curl -L $M2/org/apache/hadoop/hadoop-aws/${HADOOP_VERSION}/hadoop-aws-${HADOOP_VERSION}.jar -o ${HIVE_HOME}/lib/hadoop-aws.jar && \
