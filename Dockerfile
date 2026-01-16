@@ -55,7 +55,7 @@ ADD conf/llap-daemon-log4j2.properties $HIVE_HOME/conf
 RUN groupadd -r hive --gid=1000 && \
     useradd -r -g hive --uid=1000 -d ${HIVE_HOME} hive && \
     chown hive:hive -R ${HIVE_HOME} && \
-    chown hive:hive /entrypoint.sh && chmod +x /entrypoint.sh
+    chown hive:hive /usr/local/bin/entrypoint.sh && chmod +x /usr/local/bin/entrypoint.sh
 
 RUN wget --no-check-certificate https://jdbc.postgresql.org/download/postgresql-42.7.4.jar -O ${HIVE_HOME}/lib/postgresql-42.7.4.jar
     
@@ -73,5 +73,5 @@ ENV HADOOP_HOME=/opt/hadoop-${HADOOP_VERSION}
 USER hive
 EXPOSE 9083
 
-ENTRYPOINT ["entrypoint.sh"]
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 
