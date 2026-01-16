@@ -41,7 +41,7 @@ RUN mkdir -p /tmp/hive && chmod 777 /tmp/hive
 
 RUN mkdir -p ${HIVE_HOME} && \
     curl -L https://apache.org/dist/hive/hive-standalone-metastore-${METASTORE_VERSION}/hive-standalone-metastore-${METASTORE_VERSION}-bin.tar.gz | tar zxf - -C ${HIVE_HOME} && \
-    curl -L https://archive.apache.org/dist/hadoop/common/hadoop-${HADOOP_VERSION}/hadoop-${HADOOP_VERSION}.tar.gz | tar zxf - && \
+    curl -L https://archive.apache.org/dist/hadoop/common/hadoop-${HADOOP_VERSION}/hadoop-${HADOOP_VERSION}.tar.gz | tar zxf -
 
 #Custom configuration goes here
 ADD conf/hive-site.xml $HIVE_HOME/conf
