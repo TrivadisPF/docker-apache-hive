@@ -21,15 +21,6 @@ ENV AZURE_STORAGE_VERSION=8.6.6
 ENV AZURE_DL_SDK_VERSION=2.3.9
 ENV M2=https://repo1.maven.org/maven2
 
-#Custom configuration goes here
-ADD conf/hive-site.xml $HIVE_HOME/conf
-ADD conf/beeline-log4j2.properties $HIVE_HOME/conf
-ADD conf/hive-env.sh $HIVE_HOME/conf
-ADD conf/hive-exec-log4j2.properties $HIVE_HOME/conf
-ADD conf/hive-log4j2.properties $HIVE_HOME/conf
-ADD conf/ivysettings.xml $HIVE_HOME/conf
-ADD conf/llap-daemon-log4j2.properties $HIVE_HOME/conf
-
 USER root
 COPY entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/entrypoint.sh
@@ -67,6 +58,15 @@ RUN curl -L $M2/com/amazonaws/aws-java-sdk-bundle/${AWS_SDK_VERSION}/aws-java-sd
     curl -L $M2/com/azure/azure-data-lake-store-sdk/${AZURE_DL_SDK_VERSION}/azure-data-lake-store-sdk-${AZURE_DL_SDK_VERSION}.jar -o ${HIVE_HOME}/lib/azure-data-lake-store-sdk.jar && \
     curl -L $M2/org/apache/hadoop/hadoop-azure/${HADOOP_VERSION}/hadoop-azure-${HADOOP_VERSION}.jar -o ${HIVE_HOME}/lib/hadoop-azure.jar && \
     curl -L $M2/org/apache/hadoop/hadoop-azure/${HADOOP_VERSION}/hadoop-azure-datalake-${HADOOP_VERSION}.jar -o ${HIVE_HOME}/lib/hadoop-azure-datalake.jar
+
+#Custom configuration goes here
+ADD conf/hive-site.xml $HIVE_HOME/conf
+ADD conf/beeline-log4j2.properties $HIVE_HOME/conf
+ADD conf/hive-env.sh $HIVE_HOME/conf
+ADD conf/hive-exec-log4j2.properties $HIVE_HOME/conf
+ADD conf/hive-log4j2.properties $HIVE_HOME/conf
+ADD conf/ivysettings.xml $HIVE_HOME/conf
+ADD conf/llap-daemon-log4j2.properties $HIVE_HOME/conf
 
 ENV HADOOP_OPTIONAL_TOOLS=hadoop-azure,hadoop-azure-datalake
 ENV HADOOP_CLASSPATH=/opt/hive/lib/*.jar:/opt/hadoop-$HADOOP_VERSION/share/hadoop/tools/lib/*.jar
