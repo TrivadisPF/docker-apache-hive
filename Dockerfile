@@ -15,7 +15,7 @@ WORKDIR /opt
 
 ENV HADOOP_VERSION=3.1.4
 ENV METASTORE_VERSION=3.0.0
-ENV HIVE_HOME=/opt/apache-hive-metastore-${METASTORE_VERSION}-bin
+ENV HIVE_HOME=/opt/hive
 ENV AWS_SDK_VERSION=1.11.271
 ENV AZURE_STORAGE_VERSION=8.6.6
 ENV AZURE_DL_SDK_VERSION=2.3.9
@@ -39,11 +39,9 @@ RUN set -ex; \
 
 RUN mkdir -p /tmp/hive && chmod 777 /tmp/hive
 
-RUN curl -L https://apache.org/dist/hive/hive-standalone-metastore-${METASTORE_VERSION}/hive-standalone-metastore-${METASTORE_VERSION}-bin.tar.gz | tar zxf - && \
+RUN mkdir -p ${HIVE_HOME} && \
+    curl -L https://apache.org/dist/hive/hive-standalone-metastore-${METASTORE_VERSION}/hive-standalone-metastore-${METASTORE_VERSION}-bin.tar.gz | tar zxf - -C ${HIVE_HOME} && \
     curl -L https://archive.apache.org/dist/hadoop/common/hadoop-${HADOOP_VERSION}/hadoop-${HADOOP_VERSION}.tar.gz | tar zxf - && \
-    curl -L https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-8.0.19.tar.gz | tar zxf - && \
-    cp mysql-connector-java-8.0.19/mysql-connector-java-8.0.19.jar ${HIVE_HOME}/lib/ && \
-    rm -rf  mysql-connector-java-8.0.19
 
 RUN groupadd -r hive --gid=1000 && \
     useradd -r -g hive --uid=1000 -d ${HIVE_HOME} hive && \
